@@ -1,6 +1,5 @@
 from src.item import Item
 from config import ROOT_DIR
-from pathlib import Path
 
 if __name__ == '__main__':
     item = Item('Телефон', 10000, 5)

@@ -28,6 +28,14 @@ class Item:
     def __str__(self):
         return f'{self.__name}'
 
+    def __add__(self, other):
+        """
+        Сложение атрибута quantity экземпляров класса Item и его дочерних классов
+        """
+        if not isinstance(other, Item):
+            raise ValueError('Складывать можно только объекты класса Item и его наследников')
+        return self.quantity + other.quantity
+
     @classmethod
     def instantiate_from_csv(cls, path_file):
         """

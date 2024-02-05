@@ -1,10 +1,14 @@
+import pytest
+
 from src.item import Item
+from src.phone import Phone
 from config import ROOT_DIR
 
 item1 = Item('Смартфон', 10000, 20)
 item2 = Item('Ноутбук', 20000, 5)
 item1.pay_rate = 0.8
 item2.pay_rate = 0.5
+phone1 = Phone('Samsung s24', 120_000, 5, 2)
 
 
 def test_item():
@@ -45,10 +49,22 @@ def test_string_to_number():
 
 
 def test_repr():
-    item1 = Item('Смартфон', 10000, 20)
-    assert repr(item1) == "Item('Смартфон', 10000, 20)"
+    item2 = Item('Ноутбук', 20000, 5)
+    assert repr(item2) == "Item('Ноутбук', 20000, 5)"
+    assert repr(phone1) == "Phone('Samsung s24', 120000, 5, 2)"
 
 
 def test_str():
-    item1 = Item('Смартфон', 10000, 20)
-    assert str(item1) == 'Смартфон'
+    assert str(item2) == 'Ноутбук'
+    assert str(phone1) == 'Samsung s24'
+
+
+def test_add_quantity():
+    assert item2.quantity + phone1.quantity == 10
+
+
+def test_set_number_of_sim():
+    phone1.number_of_sim = 1
+    assert phone1.number_of_sim == 1
+    with pytest.raises(ValueError):
+        phone1.number_of_sim = 0

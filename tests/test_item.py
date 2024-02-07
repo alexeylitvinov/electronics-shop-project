@@ -2,13 +2,15 @@ import pytest
 
 from src.item import Item
 from src.phone import Phone
+from src.keyboard import Keyboard
 from config import ROOT_DIR
 
 item1 = Item('Смартфон', 10000, 20)
 item2 = Item('Ноутбук', 20000, 5)
 item1.pay_rate = 0.8
 item2.pay_rate = 0.5
-phone1 = Phone('Samsung s24', 120_000, 5, 2)
+phone1 = Phone('Samsung s24', 120000, 5, 2)
+keyboard1 = Keyboard('Thor', 10000, 7)
 
 
 def test_item():
@@ -18,6 +20,14 @@ def test_item():
     assert item2.name == 'Ноутбук'
     assert item2.price == 20000
     assert item2.quantity == 5
+    assert phone1.name == 'Samsung s24'
+    assert phone1.price == 120000
+    assert phone1.quantity == 5
+    assert phone1.number_of_sim == 2
+    assert keyboard1.name == 'Thor'
+    assert keyboard1.price == 10000
+    assert keyboard1.quantity == 7
+    assert keyboard1.language == 'EN'
 
 
 def test_rename_item():
@@ -52,11 +62,13 @@ def test_repr():
     item2 = Item('Ноутбук', 20000, 5)
     assert repr(item2) == "Item('Ноутбук', 20000, 5)"
     assert repr(phone1) == "Phone('Samsung s24', 120000, 5, 2)"
+    assert repr(keyboard1) == "Keyboard('Thor', 10000, 7)"
 
 
 def test_str():
     assert str(item2) == 'Ноутбук'
     assert str(phone1) == 'Samsung s24'
+    assert str(keyboard1) == 'Thor'
 
 
 def test_add_quantity():
@@ -68,3 +80,10 @@ def test_set_number_of_sim():
     assert phone1.number_of_sim == 1
     with pytest.raises(ValueError):
         phone1.number_of_sim = 0
+
+
+def test_change_language():
+    keyboard1.change_lang()
+    assert keyboard1.language == 'RU'
+    keyboard1.change_lang()
+    assert keyboard1.language == 'EN'

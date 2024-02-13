@@ -10,7 +10,6 @@ class MixinChangeLang:
         switch = self.__list_lang.pop(0)
         self.__list_lang.append(switch)
         self.__language = self.__list_lang[0]
-        return self.__language
 
     @property
     def language(self):
@@ -18,5 +17,4 @@ class MixinChangeLang:
 
 
 class Keyboard(Item, MixinChangeLang):
-    def __init__(self, name, price, quantity):
-        super().__init__(name, price, quantity)
+    pass

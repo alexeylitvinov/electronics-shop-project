@@ -4,6 +4,7 @@ from src.item import Item
 from src.phone import Phone
 from src.keyboard import Keyboard
 from config import ROOT_DIR
+from src.exception import InstantiateCSVError
 
 item1 = Item('Смартфон', 10000, 20)
 item2 = Item('Ноутбук', 20000, 5)
@@ -49,8 +50,15 @@ def test_apply_discount():
 
 def test_instantiate_from_csv():
     Item.instantiate_from_csv(ROOT_DIR.joinpath('electronics-shop-project', 'src', 'items.csv'))
-    assert len(Item.all) == 5
+    assert len(Item.all) == 4
     assert Item.all[-1].name == 'Клавиатура'
+
+
+def test_instantiate_from_csv_error():
+    try:
+        Item.instantiate_from_csv(ROOT_DIR.joinpath('electronics-shop-project', 'src', 'items_filed.csv'))
+    except Exception as ex:
+        assert ex == Exception('InstantiateCSVError: Файл item.csv поврежден')
 
 
 def test_string_to_number():

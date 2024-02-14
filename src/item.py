@@ -47,20 +47,16 @@ class Item:
         try:
             file = open(path_file)
         except FileNotFoundError:
-            print('FileNotFoundError: Отсутствует файл item.csv')
+            raise FileNotFoundError('Отсутствует файл item.csv')
         else:
-            try:
-                reader = csv.DictReader(file)
-                headers = next(reader)
-                if len(headers) != 3:
-                    error = InstantiateCSVError()
-            except Exception as ex:
-                print(ex)
-            else:
-                with file:
-                    for i in reader:
-                        name, price, quantity = i['name'], i['price'], i['quantity']
-                        cls(name, price, quantity)
+            reader = csv.DictReader(file)
+            headers = next(reader)
+            if len(headers) != 3:
+                raise InstantiateCSVError('Файл повреждён item.csv')
+            with file:
+                for i in reader:
+                    name, price, quantity = i['name'], i['price'], i['quantity']
+                    cls(name, price, quantity)
             file.close()
 
     @staticmethod

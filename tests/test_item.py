@@ -54,11 +54,15 @@ def test_instantiate_from_csv():
     assert Item.all[-1].name == 'Клавиатура'
 
 
-def test_instantiate_from_csv_error():
-    try:
+def test_file_damage():
+    with pytest.raises(InstantiateCSVError):
         Item.instantiate_from_csv(ROOT_DIR.joinpath('electronics-shop-project', 'src', 'items_filed.csv'))
-    except Exception as ex:
-        assert ex == Exception('InstantiateCSVError: Файл item.csv поврежден')
+
+
+def test_file_found():
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(ROOT_DIR.joinpath('electronics-shop-project', 'src', 'items.csv'))
+        raise FileNotFoundError('Отсутствует файл item.csv')
 
 
 def test_string_to_number():
